@@ -162,13 +162,13 @@ export default function LaundryRecommendation({ forecast }: LaundryRecommendatio
 
   return (
     <div className={`p-4 rounded-xl ${bgClass} animate-weather`}>
-      <div className="flex items-start gap-4">
-        <div className={`p-3 rounded-full ${iconClass}`}>{icon}</div>
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className={`p-3 rounded-full ${iconClass} mb-2 sm:mb-0`}>{icon}</div>
         <div className="flex-1">
           <h3 className="text-lg font-semibold mb-1">{recommendation}</h3>
           <p className="text-slate-700 dark:text-slate-300 mb-4">{detailedRecommendation}</p>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30">
                 <Sun className="h-4 w-4 text-yellow-500 dark:text-yellow-400" />

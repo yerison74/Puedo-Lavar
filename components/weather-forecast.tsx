@@ -18,31 +18,31 @@ export default function WeatherForecast({ forecast }: WeatherForecastProps) {
       case "lluvia":
         return (
           <div className="weather-icon">
-            <CloudRain className="h-8 w-8 text-blue-500 drop-shadow-md" />
+            <CloudRain className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500 drop-shadow-md" />
           </div>
         )
       case "nublado":
         return (
           <div className="weather-icon">
-            <Cloud className="h-8 w-8 text-slate-500 drop-shadow-md" />
+            <Cloud className="h-6 w-6 sm:h-8 sm:w-8 text-slate-500 drop-shadow-md" />
           </div>
         )
       case "llovizna":
         return (
           <div className="weather-icon">
-            <CloudDrizzle className="h-8 w-8 text-blue-400 drop-shadow-md" />
+            <CloudDrizzle className="h-6 w-6 sm:h-8 sm:w-8 text-blue-400 drop-shadow-md" />
           </div>
         )
       case "nieve":
         return (
           <div className="weather-icon">
-            <CloudSnow className="h-8 w-8 text-blue-200 drop-shadow-md" />
+            <CloudSnow className="h-6 w-6 sm:h-8 sm:w-8 text-blue-200 drop-shadow-md" />
           </div>
         )
       case "despejado":
         return (
           <div className="weather-icon">
-            <Moon className="h-8 w-8 text-indigo-400 drop-shadow-md" />
+            <Moon className="h-6 w-6 sm:h-8 sm:w-8 text-indigo-400 drop-shadow-md" />
           </div>
         )
       case "soleado":
@@ -50,9 +50,9 @@ export default function WeatherForecast({ forecast }: WeatherForecastProps) {
         return (
           <div className="weather-icon">
             {isDay ? (
-              <Sun className="h-8 w-8 text-yellow-500 drop-shadow-md" />
+              <Sun className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500 drop-shadow-md" />
             ) : (
-              <Moon className="h-8 w-8 text-indigo-400 drop-shadow-md" />
+              <Moon className="h-6 w-6 sm:h-8 sm:w-8 text-indigo-400 drop-shadow-md" />
             )}
           </div>
         )
@@ -97,23 +97,25 @@ export default function WeatherForecast({ forecast }: WeatherForecastProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Mañana (6:00 - 12:00)</h3>
-        <div className="overflow-x-auto pb-2">
-          <div className="flex space-x-3 pb-2">
+        <h3 className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
+          Mañana (6:00 - 12:00)
+        </h3>
+        <div className="overflow-x-auto pb-2 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div className="flex space-x-2 sm:space-x-3 pb-2 min-w-max">
             {morningForecast.map((hourData, index) => (
               <div
                 key={`morning-${index}`}
-                className={`flex flex-col items-center min-w-[85px] p-3 rounded-xl shadow-sm weather-hour ${getWeatherClass(
+                className={`flex flex-col items-center min-w-[60px] sm:min-w-[85px] p-2 sm:p-3 rounded-xl shadow-sm weather-hour ${getWeatherClass(
                   hourData.condition,
                   hourData.isDay,
                 )}`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="text-sm font-medium mb-1">{formatHour(hourData.hour)}</span>
-                <div className="my-2">{getWeatherIcon(hourData.condition, hourData.isDay)}</div>
-                <span className="text-xl font-bold">{hourData.temperature}°</span>
+                <span className="text-xs sm:text-sm font-medium mb-1">{formatHour(hourData.hour)}</span>
+                <div className="my-1 sm:my-2">{getWeatherIcon(hourData.condition, hourData.isDay)}</div>
+                <span className="text-lg sm:text-xl font-bold">{hourData.temperature}°</span>
                 {hourData.precipitation > 0 && (
-                  <div className="flex items-center mt-2 text-xs text-blue-600 dark:text-blue-400">
+                  <div className="flex items-center mt-1 sm:mt-2 text-xs text-blue-600 dark:text-blue-400">
                     <Droplets className="h-3 w-3 mr-1" />
                     <span>{hourData.precipitation}%</span>
                   </div>
@@ -125,23 +127,25 @@ export default function WeatherForecast({ forecast }: WeatherForecastProps) {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Tarde (13:00 - 19:00)</h3>
-        <div className="overflow-x-auto pb-2">
-          <div className="flex space-x-3 pb-2">
+        <h3 className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
+          Tarde (13:00 - 19:00)
+        </h3>
+        <div className="overflow-x-auto pb-2 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div className="flex space-x-2 sm:space-x-3 pb-2 min-w-max">
             {afternoonForecast.map((hourData, index) => (
               <div
                 key={`afternoon-${index}`}
-                className={`flex flex-col items-center min-w-[85px] p-3 rounded-xl shadow-sm weather-hour ${getWeatherClass(
+                className={`flex flex-col items-center min-w-[60px] sm:min-w-[85px] p-2 sm:p-3 rounded-xl shadow-sm weather-hour ${getWeatherClass(
                   hourData.condition,
                   hourData.isDay,
                 )}`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="text-sm font-medium mb-1">{formatHour(hourData.hour)}</span>
-                <div className="my-2">{getWeatherIcon(hourData.condition, hourData.isDay)}</div>
-                <span className="text-xl font-bold">{hourData.temperature}°</span>
+                <span className="text-xs sm:text-sm font-medium mb-1">{formatHour(hourData.hour)}</span>
+                <div className="my-1 sm:my-2">{getWeatherIcon(hourData.condition, hourData.isDay)}</div>
+                <span className="text-lg sm:text-xl font-bold">{hourData.temperature}°</span>
                 {hourData.precipitation > 0 && (
-                  <div className="flex items-center mt-2 text-xs text-blue-600 dark:text-blue-400">
+                  <div className="flex items-center mt-1 sm:mt-2 text-xs text-blue-600 dark:text-blue-400">
                     <Droplets className="h-3 w-3 mr-1" />
                     <span>{hourData.precipitation}%</span>
                   </div>
@@ -153,23 +157,23 @@ export default function WeatherForecast({ forecast }: WeatherForecastProps) {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Noche (20:00 - 5:00)</h3>
-        <div className="overflow-x-auto pb-2">
-          <div className="flex space-x-3 pb-2">
+        <h3 className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Noche (20:00 - 5:00)</h3>
+        <div className="overflow-x-auto pb-2 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div className="flex space-x-2 sm:space-x-3 pb-2 min-w-max">
             {sortedNightForecast.map((hourData, index) => (
               <div
                 key={`night-${index}`}
-                className={`flex flex-col items-center min-w-[85px] p-3 rounded-xl shadow-sm weather-hour ${getWeatherClass(
+                className={`flex flex-col items-center min-w-[60px] sm:min-w-[85px] p-2 sm:p-3 rounded-xl shadow-sm weather-hour ${getWeatherClass(
                   hourData.condition,
                   hourData.isDay,
                 )}`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="text-sm font-medium mb-1">{formatHour(hourData.hour)}</span>
-                <div className="my-2">{getWeatherIcon(hourData.condition, hourData.isDay)}</div>
-                <span className="text-xl font-bold">{hourData.temperature}°</span>
+                <span className="text-xs sm:text-sm font-medium mb-1">{formatHour(hourData.hour)}</span>
+                <div className="my-1 sm:my-2">{getWeatherIcon(hourData.condition, hourData.isDay)}</div>
+                <span className="text-lg sm:text-xl font-bold">{hourData.temperature}°</span>
                 {hourData.precipitation > 0 && (
-                  <div className="flex items-center mt-2 text-xs text-blue-600 dark:text-blue-400">
+                  <div className="flex items-center mt-1 sm:mt-2 text-xs text-blue-600 dark:text-blue-400">
                     <Droplets className="h-3 w-3 mr-1" />
                     <span>{hourData.precipitation}%</span>
                   </div>

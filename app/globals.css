@@ -264,3 +264,59 @@ body {
 .dark .app-title {
   @apply from-blue-400 to-blue-300;
 }
+
+/* Asegurar que el scroll horizontal funcione bien en móviles */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Mejorar la visualización en dispositivos pequeños */
+@media (max-width: 640px) {
+  .weather-hour {
+    @apply p-2 min-w-[60px];
+  }
+
+  .search-container {
+    @apply p-4;
+  }
+
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .location-badge {
+    @apply text-xs px-1.5 py-0.5;
+  }
+
+  .accuracy-badge {
+    font-size: 10px;
+    @apply px-1.5 py-0.5;
+  }
+}
+
+/* Asegurar que el scroll horizontal funcione bien en móviles */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Mejorar la visualización en dispositivos muy pequeños */
+@media (max-width: 360px) {
+  .weather-hour {
+    min-width: 55px;
+    padding: 0.375rem;
+  }
+
+  .app-title {
+    font-size: 1.25rem;
+  }
+}

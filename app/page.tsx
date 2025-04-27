@@ -256,19 +256,19 @@ export default function Home() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8 relative">
+    <main className="container mx-auto px-4 py-4 sm:py-8 relative">
       <div className="absolute top-4 right-4">
         <ModeToggle />
       </div>
 
-      <div className="flex items-center justify-center mb-8">
+      <div className="flex items-center justify-center mb-6 sm:mb-8">
         <div className="mr-3">
-          <Shirt className="h-8 w-8 text-blue-500" />
+          <Shirt className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
         </div>
-        <h1 className="text-4xl font-bold app-title">¿Puedo Lavar Mi Ropa Hoy?</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold app-title">¿Puedo Lavar Mi Ropa Hoy?</h1>
       </div>
 
-      <div className="max-w-xl mx-auto mb-10 search-container animate-weather">
+      <div className="max-w-xl mx-auto mb-6 sm:mb-10 search-container animate-weather">
         <form onSubmit={handleSearch} className="flex gap-2">
           <Input
             type="text"
@@ -302,7 +302,8 @@ export default function Home() {
             className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-all duration-300"
           >
             {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Search className="h-4 w-4 mr-2" />}
-            Buscar
+            <span className="hidden sm:inline">Buscar</span>
+            <span className="sm:hidden">Ir</span>
           </Button>
         </form>
 
@@ -318,7 +319,7 @@ export default function Home() {
 
         {locationAccuracy && !geolocating && (
           <div className="mt-3 flex items-center gap-2 animate-weather">
-            <span className="text-sm text-slate-600 dark:text-slate-400">Precisión:</span>
+            <span className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Precisión:</span>
             <span className={`accuracy-badge ${getAccuracyDescription(locationAccuracy).color}`}>
               {getAccuracyDescription(locationAccuracy).text} ({Math.round(locationAccuracy)}m)
             </span>
@@ -327,7 +328,7 @@ export default function Home() {
       </div>
 
       {error && (
-        <div className="max-w-xl mx-auto mb-8 animate-weather">
+        <div className="max-w-xl mx-auto mb-6 sm:mb-8 animate-weather">
           <Alert variant="destructive" className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/30">
             <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
             <AlertTitle>Error</AlertTitle>
@@ -337,19 +338,19 @@ export default function Home() {
       )}
 
       {weatherData && (
-        <div className="space-y-6 max-w-3xl mx-auto">
+        <div className="space-y-4 sm:space-y-6 max-w-3xl mx-auto">
           <Card className="weather-card animate-weather">
-            <CardHeader>
-              <div className="flex items-center justify-between">
+            <CardHeader className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <CardTitle className="text-2xl">Pronóstico para</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">Pronóstico para</CardTitle>
                   <div className="mt-1 location-badge">
                     <MapPin className="h-3 w-3" />
-                    <span>{searchedLocation}</span>
+                    <span className="text-xs">{searchedLocation}</span>
                   </div>
                 </div>
-                <div className="text-right">
-                  <CardDescription className="text-sm">
+                <div className="text-left sm:text-right">
+                  <CardDescription className="text-xs sm:text-sm">
                     {new Date().toLocaleDateString("es-ES", {
                       weekday: "long",
                       year: "numeric",
@@ -360,14 +361,14 @@ export default function Home() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 sm:p-6">
               <WeatherForecast forecast={weatherData.hourly} />
             </CardContent>
             {locationCoords && (
-              <CardFooter className="text-xs text-muted-foreground border-t border-slate-100 dark:border-slate-800 pt-4">
+              <CardFooter className="text-xs text-muted-foreground border-t border-slate-100 dark:border-slate-800 pt-4 px-4 sm:px-6">
                 <div className="flex items-center gap-1">
                   <MapPin className="h-3 w-3" />
-                  <span>
+                  <span className="text-xs">
                     Coordenadas exactas: {locationCoords.latitude.toFixed(6)}, {locationCoords.longitude.toFixed(6)}
                   </span>
                 </div>
@@ -376,13 +377,13 @@ export default function Home() {
           </Card>
 
           <Card className="recommendation-card animate-weather">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-xl sm:text-2xl flex items-center gap-2">
                 <CloudRain className="h-5 w-5 text-blue-500" />
                 Recomendación para lavar ropa
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 sm:p-6">
               <LaundryRecommendation forecast={weatherData.hourly} />
             </CardContent>
           </Card>
