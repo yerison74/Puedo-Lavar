@@ -121,6 +121,22 @@ body {
   @apply from-yellow-900/30 to-orange-900/30;
 }
 
+.weather-hour.snow {
+  @apply bg-gradient-to-b from-blue-50 to-slate-50;
+}
+
+.dark .weather-hour.snow {
+  @apply from-blue-900/20 to-slate-900/30;
+}
+
+.weather-hour.clear-night {
+  @apply bg-gradient-to-b from-indigo-50 to-slate-50;
+}
+
+.dark .weather-hour.clear-night {
+  @apply from-indigo-900/30 to-slate-900/40;
+}
+
 .recommendation-card {
   @apply relative overflow-hidden backdrop-blur-sm bg-white/80 border-none shadow-lg;
 }

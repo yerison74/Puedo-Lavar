@@ -20,48 +20,56 @@ export async function GET(request: NextRequest) {
     const weatherData = await response.json()
 
     // Transformar los datos al formato que espera nuestra aplicación
-    const hourlyForecast = weatherData.forecast.forecastday[0].hour
-      .filter((hourData) => {
-        const hour = new Date(hourData.time).getHours()
-        return hour >= 6 && hour <= 20 // Solo horas entre 6am y 8pm
-      })
-      .map((hourData) => {
-        const hour = new Date(hourData.time).getHours()
+    // Ahora incluimos todas las horas del día (0-23)
+    const hourlyForecast = weatherData.forecast.forecastday[0].hour.map((hourData) => {
+      const hour = new Date(hourData.time).getHours()
+      const conditionText = hourData.condition.text.toLowerCase()
 
-        // Mapear las condiciones de WeatherAPI a nuestras condiciones simplificadas
-        let condition = "soleado"
-        if (
-          hourData.condition.text.toLowerCase().includes("rain") ||
-          hourData.condition.text.toLowerCase().includes("lluvia") ||
-          hourData.condition.text.toLowerCase().includes("shower")
-        ) {
-          condition = "lluvia"
-        } else if (
-          hourData.condition.text.toLowerCase().includes("drizzle") ||
-          hourData.condition.text.toLowerCase().includes("llovizna")
-        ) {
-          condition = "llovizna"
-        } else if (
-          hourData.condition.text.toLowerCase().includes("cloud") ||
-          hourData.condition.text.toLowerCase().includes("overcast") ||
-          hourData.condition.text.toLowerCase().includes("nublado")
-        ) {
-          condition = "nublado"
-        }
+      // Mapear las condiciones de WeatherAPI a nuestras condiciones simplificadas
+      let condition = "soleado"
+      if (conditionText.includes("rain") || conditionText.includes("lluvia") || conditionText.includes("shower")) {
+        condition = "lluvia"
+      } else if (conditionText.includes("drizzle") || conditionText.includes("llovizna")) {
+        condition = "llovizna"
+      } else if (
+        conditionText.includes("snow") ||
+        conditionText.includes("nieve") ||
+        conditionText.includes("sleet") ||
+        conditionText.includes("ice")
+      ) {
+        condition = "nieve"
+      } else if (
+        conditionText.includes("cloud") ||
+        conditionText.includes("overcast") ||
+        conditionText.includes("nublado") ||
+        conditionText.includes("cubierto")
+      ) {
+        condition = "nublado"
+      } else if (
+        conditionText.includes("clear") ||
+        conditionText.includes("despejado") ||
+        conditionText.includes("sunny") ||
+        conditionText.includes("soleado")
+      ) {
+        // Para la noche, "clear" significa cielo despejado (no soleado)
+        condition = hour >= 20 || hour < 6 ? "despejado" : "soleado"
+      }
 
-        return {
-          hour,
-          temperature: Math.round(hourData.temp_c),
-          condition,
-          precipitation: hourData.chance_of_rain,
-        }
-      })
+      return {
+        hour,
+        temperature: Math.round(hourData.temp_c),
+        condition,
+        precipitation: hourData.chance_of_rain,
+        isDay: hourData.is_day === 1,
+      }
+    })
 
     return NextResponse.json({
       location: weatherData.location.name,
       current: {
         temperature: Math.round(weatherData.current.temp_c),
         condition: weatherData.current.condition.text,
+        isDay: weatherData.current.is_day === 1,
       },
       hourly: hourlyForecast,
     })
